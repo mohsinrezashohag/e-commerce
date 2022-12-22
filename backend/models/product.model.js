@@ -1,22 +1,43 @@
 const { default: mongoose } = require("mongoose");
 const validator = require("validator");
 const bcrypt = require('bcrypt');
-const productSchema = new mongoose.Schema({
 
+
+const reviewSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: true
+    },
+    ratting: {
+        type: Number,
+        required: true
+    },
+    comment: {
+        type: String,
+        required: true
+
+    }
+}, {
+    timestamps: true
+})
+
+
+
+const productSchema = new mongoose.Schema({
     user: {
         type: ObjectId,
-        require: true,
+        required: true,
         ref: 'User'
     },
     name: {
         type: String,
         trim: true,
-        require: true,
+        required: true,
         maxLength: [30, 'minimum 3 letter needed'],
     },
     image: {
         type: String,
-        require: true,
+        required: true,
     },
     description: {
         type: String,
@@ -24,32 +45,31 @@ const productSchema = new mongoose.Schema({
     },
     brand: {
         type: String,
-        require: true
+        required: true
     },
     category: {
         type: String,
-        require: true
+        required: true
     },
     price: {
         type: Number,
-        require: true,
+        required: true,
     },
     countInStock: {
         type: Number,
-        require: true,
+        required: true,
         default: 0,
     },
     ratting: {
         type: Number,
-        require: true,
-        default: 0
+        required: 0
     },
 
     review: [reviewSchema],
 
     numReviews: {
         type: Number,
-        require: true,
+        required: true,
         default: 0
     },
 
