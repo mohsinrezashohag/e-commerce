@@ -3,7 +3,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Button, Card, Col, Container, Form, ListGroup, Row } from 'react-bootstrap'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Ratting from '../components/Ratting';
 
 const ProductScreen = () => {
@@ -28,9 +28,9 @@ const ProductScreen = () => {
 
 
     const [qty, setQty] = useState(1)
-
+    const navigate = useNavigate()
     const addToCartHandler = () => {
-
+        navigate(`/cart/${id}?qty=${qty}`)
     }
 
     return (
@@ -86,19 +86,13 @@ const ProductScreen = () => {
                                     <Row>
                                         <Col>Quantity</Col>
                                         <Col>
-                                            <Form.Control
-                                                as='select'
-                                                value={qty}
-                                                onChange={(e) => setQty(e.target.value)}
-                                            >
-                                                {[...Array(product.countInStock).keys()].map(
-                                                    (x) => (
-                                                        <option key={x + 1} value={x + 1}>
-                                                            {x + 1}
-                                                        </option>
-                                                    )
-                                                )}
-                                            </Form.Control>
+                                            {
+                                                <Form.Control as="select" value={qty} onChange={(e) => setQty(e.target.value)}>
+                                                    {[...Array(product.countInStock).keys()].map(x => (
+                                                        <option keys={x + 1} value={x + 1}>{x + 1}</option>
+                                                    ))}
+                                                </Form.Control>
+                                            }
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
@@ -106,7 +100,7 @@ const ProductScreen = () => {
 
                             <ListGroup.Item>
                                 <Button
-                                    onClick={addToCartHandler}
+                                    onClick={() => addToCartHandler(product.id)}
                                     className='btn-block'
                                     type='button'
                                     disabled={product.countInStock === 0}
@@ -178,7 +172,7 @@ const ProductScreen = () => {
 
 
 
-        </Container>
+        </Container >
     );
 };
 

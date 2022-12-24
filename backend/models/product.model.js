@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
 const validator = require("validator");
 const bcrypt = require('bcrypt');
+const ObjectId = mongoose.Schema.Types.ObjectId
 
 
 const reviewSchema = new mongoose.Schema({
@@ -33,7 +34,6 @@ const productSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: true,
-        maxLength: [30, 'minimum 3 letter needed'],
     },
     image: {
         type: String,
@@ -60,9 +60,9 @@ const productSchema = new mongoose.Schema({
         required: true,
         default: 0,
     },
-    ratting: {
+    rating: {
         type: Number,
-        required: 0
+        required: true
     },
 
     review: [reviewSchema],
@@ -79,6 +79,6 @@ const productSchema = new mongoose.Schema({
 
 
 
-const Product = mongoose.model('Product', userSchema)
+const Product = mongoose.model('Product', productSchema)
 
 module.exports = Product

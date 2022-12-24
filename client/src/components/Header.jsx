@@ -8,7 +8,6 @@ const Header = () => {
 
     const [toggle, setToggle] = useState(false)
 
-    console.log(toggle);
 
     return (
         <div className="header">
